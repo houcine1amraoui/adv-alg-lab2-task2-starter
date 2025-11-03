@@ -12,5 +12,7 @@ merge_comparisons = []
 plt.plot(sizes, bubble_comparisons, label="bubble sort")
 plt.plot(sizes, selection_comparisons, label="selection sort")
 plt.plot(sizes, merge_comparisons, label="merge sort")
+plt.xscale('log')
+plt.yscale('log')
 plt.legend()
 plt.show()
