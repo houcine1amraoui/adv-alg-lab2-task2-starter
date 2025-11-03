@@ -19,26 +19,33 @@ def selection_sort(arr):
         arr[i], arr[min_index] = arr[min_index], arr[i]
 
 def merge_sort(arr):
-    # Base case: if the array has 1 or 0 elements, it’s already sorted
+    # Base case
     if len(arr) <= 1:
-        return arr
+        return arr, 0
 
-    # Step 1: Divide the array into two halves
+    # Divide the array into two halves
     mid = len(arr) // 2
-    left_half = merge_sort(arr[:mid])
-    right_half = merge_sort(arr[mid:])
+    left_half, left_comparisons = merge_sort(arr[:mid])
+    right_half, right_comparisons = merge_sort(arr[mid:])
 
-    # Step 2: Merge the two sorted halves
-    return merge(left_half, right_half)
+    # Merge step
+    merged, merge_comparisons = merge(left_half, right_half)
+
+    # Total comparisons = left + right + merge
+    total_comparisons = left_comparisons + right_comparisons + merge_comparisons
+
+    return merged, total_comparisons
 
 
 def merge(left, right):
-    """merge two sorted lists."""
+    """merge two sorted lists and count comparisons."""
     merged = []
     i = j = 0
+    comparisons = 0  # counter for number of element comparisons
 
-    # Compare elements and merge in sorted order
+    # Compare elements from both halves
     while i < len(left) and j < len(right):
+        comparisons += 1  # every comparison of left[i] and right[j]
         if left[i] <= right[j]:
             merged.append(left[i])
             i += 1
@@ -46,8 +53,8 @@ def merge(left, right):
             merged.append(right[j])
             j += 1
 
-    # Add remaining elements from both lists (if any)
+    # Add any remaining elements
     merged.extend(left[i:])
     merged.extend(right[j:])
 
-    return merged
+    return merged, comparisons
