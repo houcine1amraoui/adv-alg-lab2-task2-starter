@@ -9,7 +9,8 @@ selection_counts = []
 
 # complete code
 
-plt.plot(sizes, bubble_counts)
+plt.plot(sizes, bubble_counts, label="bubble sort")
 plt.show()
-plt.plot(sizes, selection_counts)
+plt.plot(sizes, selection_counts, label="selection sort")
+plt.legend()
 plt.show()
